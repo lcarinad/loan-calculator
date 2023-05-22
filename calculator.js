@@ -24,31 +24,24 @@ function setupIntialValues() {
   const initialValues = { amount: 1000, years: 2, rate: 3.28 };
   const initialAmount = document.getElementById("loan-amount");
   initialAmount.placeholder = initialValues.amount;
-  // initialAmount.classList.add("initial-values");
   const initialYears = document.getElementById("loan-years");
   initialYears.placeholder = initialValues.years;
-  // initialYears.classList.add("initial-values");
   const initialRate = document.getElementById("loan-rate");
   initialRate.placeholder = initialValues.rate;
-  // initialRate.classList.add("initial-values");
-  update();
 }
 
 // Get the current values from the UI
 // Update the monthly payment
-// function update() {
-//   const form = document.getElementById("calc-form");
-//   form.classList.toggle("user-value");
-//   let formBtn = document.querySelector("button");
-//   const userAmount = document.getElementById("loan-amount").value;
-//   const userYears = document.getElementById("loan-years").value;
-//   const userRate = document.getElementById("loan-rate").value;
-
-//   formBtn.addEventListener("click", function () {
-//     let monthlyPayment = userAmount * userYears;
-//     console.log(userAmount);
-//   });
-// }
+function update() {
+  const userAmount = document.getElementById("loan-amount").value;
+  const userYears = document.getElementById("loan-years").value;
+  const numberMonthlyPayments = userYears * 12;
+  const userRate = document.getElementById("loan-rate").value;
+  const yearlyRate = userRate / 100 / 12;
+  let monthlyPayment =
+    (userAmount * yearlyRate) /
+    (1 - (1 + yearlyRate) ** -numberMonthlyPayments);
+}
 
 // Given an object of values (a value has amount, years and rate ),
 // calculate the monthly payment.  The output should be a string
