@@ -41,6 +41,9 @@ function update() {
   let monthlyPayment =
     (userAmount * yearlyRate) /
     (1 - (1 + yearlyRate) ** -numberMonthlyPayments);
+  let roundedPayment = Math.round(monthlyPayment).toFixed(2);
+  const monthlyPaymentDiv = document.querySelector("#monthly-payment");
+  monthlyPaymentDiv.innerHTML = `Your monthly payment will be $${roundedPayment} for ${numberMonthlyPayments} months.`;
 }
 
 // Given an object of values (a value has amount, years and rate ),
