@@ -53,21 +53,24 @@ function update() {
 // that always has 2 decimal places.
 function calculateMonthlyPayment() {
   const values = {
-    amount: document.getElementById("loan-amount").value,
-    years: document.getElementById("loan-years").value,
-    rate: document.getElementById("loan-rate").value,
+    amount: parseFloat(document.getElementById("loan-amount").value),
+    years: parseFloat(document.getElementById("loan-years").value),
+    rate: parseFloat(document.getElementById("loan-rate").value),
   };
   const numberMonthlyPayments = values.years * 12;
   const yearlyRate = values.rate / 100 / 12;
   let monthlyPayment =
     (values.amount * yearlyRate) /
     (1 - (1 + yearlyRate) ** -numberMonthlyPayments);
-  let roundedPayment = Math.round(monthlyPayment).toFixed(2);
-  const monthlyPaymentDiv = document.querySelector("#monthly-payment");
-  monthlyPaymentDiv.classList.add("user-payment");
-  monthlyPaymentDiv.innerHTML = `Your monthly payment will be $${roundedPayment} for ${numberMonthlyPayments} months.`;
+  let roundedPayment = monthlyPayment.toFixed(2);
+
+  updateMonthly(roundedPayment, numberMonthlyPayments);
 }
 
 // Given a string representing the monthly payment value,
 // update the UI to show the value.
-function updateMonthly(monthly) {}
+function updateMonthly(roundedPayment, numberMonthlyPayments) {
+  const monthlyPaymentDiv = document.querySelector("#monthly-payment");
+  monthlyPaymentDiv.classList.add("user-payment");
+  monthlyPaymentDiv.innerHTML = `Your monthly payment will be $${roundedPayment} for ${numberMonthlyPayments} months.`;
+}
