@@ -33,8 +33,9 @@ function setupIntialValues() {
 // Get the current values from the UI
 // Update the monthly payment
 function update() {
-  const userAmount = document.getElementById("loan-amount").value;
-  const userYears = document.getElementById("loan-years").value;
+  // const userAmount = document.getElementById("loan-amount").value;
+  // const userYears = document.getElementById("loan-years").value;
+    const initialValues = { amount: 1000, years: 2, rate: 3.28 };
   const numberMonthlyPayments = userYears * 12;
   const userRate = document.getElementById("loan-rate").value;
   const yearlyRate = userRate / 100 / 12;
@@ -49,7 +50,19 @@ function update() {
 // Given an object of values (a value has amount, years and rate ),
 // calculate the monthly payment.  The output should be a string
 // that always has 2 decimal places.
-function calculateMonthlyPayment(values) {}
+function calculateMonthlyPayment(values) {
+  const userAmount = document.getElementById("loan-amount").value;
+  const userYears = document.getElementById("loan-years").value;
+  const numberMonthlyPayments = userYears * 12;
+  const userRate = document.getElementById("loan-rate").value;
+  const yearlyRate = userRate / 100 / 12;
+  let monthlyPayment =
+    (userAmount * yearlyRate) /
+    (1 - (1 + yearlyRate) ** -numberMonthlyPayments);
+  let roundedPayment = Math.round(monthlyPayment).toFixed(2);
+  const monthlyPaymentDiv = document.querySelector("#monthly-payment");
+  monthlyPaymentDiv.innerHTML = `Your monthly payment will be $${roundedPayment} for ${numberMonthlyPayments} months.`;
+}
 
 // Given a string representing the monthly payment value,
 // update the UI to show the value.
