@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", function () {
     setupIntialValues();
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      update();
+      // update();
     });
   }
 });
@@ -28,6 +28,7 @@ function setupIntialValues() {
   initialYears.placeholder = initialValues.years;
   const initialRate = document.getElementById("loan-rate");
   initialRate.placeholder = initialValues.rate;
+  update();
 }
 
 // Get the current values from the UI
@@ -35,34 +36,34 @@ function setupIntialValues() {
 function update() {
   // const userAmount = document.getElementById("loan-amount").value;
   // const userYears = document.getElementById("loan-years").value;
-    const initialValues = { amount: 1000, years: 2, rate: 3.28 };
-  const numberMonthlyPayments = userYears * 12;
-  const userRate = document.getElementById("loan-rate").value;
-  const yearlyRate = userRate / 100 / 12;
+  const initialValues = { amount: 1000, years: 2, rate: 3.28 };
+  const numberMonthlyPayments = initialValues.years * 12;
+  const yearlyRate = initialValues.rate / 100 / 12;
   let monthlyPayment =
-    (userAmount * yearlyRate) /
+    (initialValues.amount * yearlyRate) /
     (1 - (1 + yearlyRate) ** -numberMonthlyPayments);
   let roundedPayment = Math.round(monthlyPayment).toFixed(2);
   const monthlyPaymentDiv = document.querySelector("#monthly-payment");
+  monthlyPaymentDiv.classList.add("default-payment");
   monthlyPaymentDiv.innerHTML = `Your monthly payment will be $${roundedPayment} for ${numberMonthlyPayments} months.`;
 }
 
 // Given an object of values (a value has amount, years and rate ),
 // calculate the monthly payment.  The output should be a string
 // that always has 2 decimal places.
-function calculateMonthlyPayment(values) {
-  const userAmount = document.getElementById("loan-amount").value;
-  const userYears = document.getElementById("loan-years").value;
-  const numberMonthlyPayments = userYears * 12;
-  const userRate = document.getElementById("loan-rate").value;
-  const yearlyRate = userRate / 100 / 12;
-  let monthlyPayment =
-    (userAmount * yearlyRate) /
-    (1 - (1 + yearlyRate) ** -numberMonthlyPayments);
-  let roundedPayment = Math.round(monthlyPayment).toFixed(2);
-  const monthlyPaymentDiv = document.querySelector("#monthly-payment");
-  monthlyPaymentDiv.innerHTML = `Your monthly payment will be $${roundedPayment} for ${numberMonthlyPayments} months.`;
-}
+// function calculateMonthlyPayment(values) {
+//   const userAmount = document.getElementById("loan-amount").value;
+//   const userYears = document.getElementById("loan-years").value;
+//   const numberMonthlyPayments = userYears * 12;
+//   const userRate = document.getElementById("loan-rate").value;
+//   const yearlyRate = userRate / 100 / 12;
+//   let monthlyPayment =
+//     (userAmount * yearlyRate) /
+//     (1 - (1 + yearlyRate) ** -numberMonthlyPayments);
+//   let roundedPayment = Math.round(monthlyPayment).toFixed(2);
+//   const monthlyPaymentDiv = document.querySelector("#monthly-payment");
+//   monthlyPaymentDiv.innerHTML = `Your monthly payment will be $${roundedPayment} for ${numberMonthlyPayments} months.`;
+// }
 
 // Given a string representing the monthly payment value,
 // update the UI to show the value.

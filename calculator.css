@@ -84,3 +84,7 @@ input {
   width: 60px;
   align-self: center;
 }
+.default-payment {
+  font-style: italic;
+  color: #ffffffc9;
+}
